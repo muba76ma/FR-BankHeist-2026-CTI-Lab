@@ -1,0 +1,10 @@
+import pandas as pd, os
+P = os.path.join(os.path.dirname(__file__), "..", "data", "ficoba_leak_sim.csv")
+df = pd.read_csv(P, dtype=str)
+print(f"[+] rows: {len(df):,}")
+print(f"[+] unique IBANs: {df['iban'].nunique():,}")
+print("\n[+] Top 5 banks by leaked accounts:")
+print(df['bank_code'].value_counts().head(5).to_string())
+print("\n[+] Sample record:")
+print(df.sample(1).to_string(index=False))
+print("\n[!] Risk: each leaked IBAN enables a SEPA direct-debit mandate = fraud vector.")
