@@ -1,0 +1,21 @@
+title: Potential Bank Internal Fund Exfiltration (Arkea Pattern)
+id: 8f3a2c1e-2026-4b1d-9c7e-arkea0001
+status: experimental
+description: Detects when an internal operational account of a bank initiates a high-value transfer to a crypto exchange on-ramp.
+author: FR-BankHeist-2026-CTI-Lab
+date: 2026/11/05
+logsource:
+  category: banking_transaction
+detection:
+  selection:
+    source_account_type: "INTERNAL_OPERATIONAL"
+    destination_institution_type: "CRYPTO_EXCHANGE"
+  amount:
+    amount_eur: '> 1000000'
+  condition: selection and amount
+level: critical
+falsepositives:
+  - Scheduled treasury rebalancing (pre-approved)
+tags:
+  - attack.exfiltration
+  - attack.t1567
